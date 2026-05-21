@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wollert General Store & Takeaway — Hot Food, Coffee & More</title>
+<meta name="description" content="Wollert's favourite local store. Hot food, fresh coffee, burgers, sandwiches and more — in the heart of Wollert, Melbourne's north."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --display: 'Playfair Display', serif;
+  --body: 'Lora', serif;
+  --mono: 'DM Mono', monospace;
+
+  /* Warm heritage palette */
+  --cream: #F5EFE0;
+  --cream-dark: #EDE4CC;
+  --brown: #2C1810;
+  --brown-mid: #5C3D2E;
+  --brown-light: #8B6553;
+  --rust: #C4581A;
+  --rust-light: #E8764A;
+  --gold: #D4A832;
+  --gold-light: #F0C84A;
+  --green: #3D5C3A;
+  --green-light: #5A7A56;
+  --muted: #7A6855;
+  --border: rgba(44,24,16,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+
+/* Grain texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 56px;
+  border-bottom: 2px solid var(--rust);
+}
+.nav-logo {
+  font-family: var(--display);
+  font-size: 14px;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,239,224,0.7);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-open-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green-light);
+  background: rgba(61,92,58,0.3);
+  border: 1px solid var(--green-light);
+  border-radius: 100px;
+  padding: 3px 10px;
+  letter-spacing: 0.08em;
+  animation: pulse 2s ease-in-out infinite;
+}
+.nav-open-badge.closed {
+  color: #C47A7A;
+  background: rgba(92,40,40,0.3);
+  border-color: #C47A7A;
+  animation: none;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+/* ── HERO ── */
+.hero {
+  min-height: 92vh;
+  background: var(--brown);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Steam animation */
+.steam-wrap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.steam {
+  position: absolute;
+  bottom: 0;
+  width: 3px;
+  border-radius: 100px;
+  background: linear-gradient(to top, rgba(245,239,224,0.25), transparent);
+  animation: steam-rise linear infinite;
+  transform-origin: bottom center;
+}
+.steam:nth-child(1) { left: 15%; height: 180px; animation-duration: 3.5s; animation-delay: 0s; }
+.steam:nth-child(2) { left: 25%; height: 220px; animation-duration: 4s; animation-delay: 0.8s; }
+.steam:nth-child(3) { left: 55%; height: 160px; animation-duration: 3s; animation-delay: 0.3s; }
+.steam:nth-child(4) { left: 70%; height: 200px; animation-duration: 4.5s; animation-delay: 1.2s; }
+.steam:nth-child(5) { left: 82%; height: 140px; animation-duration: 3.8s; animation-delay: 0.6s; }
+@keyframes steam-rise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 0.3; }
+  100% { transform: translateY(-300px) scaleX(2.5); opacity: 0; }
+}
+
+.hero-left {
+  padding: 5rem 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  animation: fade-up 0.9s ease both;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: inline-block; }
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  color: var(--cream);
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 16px;
+  color: rgba(245,239,224,0.65);
+  line-height: 1.7;
+  max-width: 380px;
+  margin: 1.2rem 0 2.2rem;
+}
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--rust);
+  color: var(--cream);
+  border: none;
+  padding: 13px 28px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--rust-light); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(245,239,224,0.3);
+  padding: 13px 28px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color .2s, background .2s;
+}
+.btn-outline:hover { border-color: var(--cream); background: rgba(245,239,224,0.07); }
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  background: var(--brown-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Illustrated food grid in hero right */
+.food-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.food-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+  animation: fade-up 0.9s ease both;
+}
+.food-cell:nth-child(1) { background: #3D1F12; animation-delay: 0.1s; }
+.food-cell:nth-child(2) { background: #2C3E1A; animation-delay: 0.2s; }
+.food-cell:nth-child(3) { background: #1E2D38; animation-delay: 0.3s; }
+.food-cell:nth-child(4) { background: #3D2E0A; animation-delay: 0.4s; }
+.food-cell-label {
+  position: absolute;
+  bottom: 12px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,239,224,0.5);
+}
+
+/* Heritage badge */
+.heritage-band {
+  background: var(--rust);
+  color: var(--cream);
+  text-align: center;
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── ABOUT STRIP ── */
+.about-strip {
+  background: var(--cream-dark);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 3.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr 2px 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.strip-divider { background: var(--border); align-self: stretch; }
+.strip-item { text-align: center; }
+.strip-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+.strip-title {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.strip-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── MENU ── */
+.menu-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--rust);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.section-title em { font-style: italic; color: var(--rust); font-weight: 400; }
+
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.menu-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(44,24,16,0.12); }
+.menu-card-top {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+}
+.menu-card:nth-child(1) .menu-card-top { background: #FFF3E8; }
+.menu-card:nth-child(2) .menu-card-top { background: #F0F4E8; }
+.menu-card:nth-child(3) .menu-card-top { background: #E8F0F4; }
+.menu-card:nth-child(4) .menu-card-top { background: #F4EDE8; }
+.menu-card-body { padding: 1.2rem 1.4rem 1.4rem; }
+.menu-card-cat {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 6px;
+}
+.menu-card h3 {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.menu-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.menu-items { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-item-name { color: var(--brown); }
+.menu-item-price { font-family: var(--mono); font-size: 12px; color: var(--rust); }
+
+/* ── STORY ── */
+.story-section {
+  background: var(--brown);
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.story-section::before {
+  content: '"';
+  position: absolute;
+  top: -1rem;
+  left: 2rem;
+  font-family: var(--display);
+  font-size: 20rem;
+  color: rgba(245,239,224,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+.story-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 4rem;
+  align-items: center;
+}
+.story-left .section-eyebrow { color: var(--gold); margin-bottom: 0.8rem; }
+.story-left h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  color: var(--cream);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.story-left h2 em { font-style: italic; color: var(--gold); font-weight: 400; }
+.story-facts { display: flex; flex-direction: column; gap: 14px; }
+.story-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  background: rgba(245,239,224,0.06);
+  border: 1px solid rgba(245,239,224,0.1);
+  border-radius: 4px;
+}
+.fact-icon { font-size: 1.5rem; flex-shrink: 0; }
+.fact-text h4 { font-size: 14px; color: var(--cream); font-family: var(--display); font-weight: 700; margin-bottom: 3px; }
+.fact-text p { font-size: 12px; color: rgba(245,239,224,0.55); line-height: 1.5; }
+
+/* ── HOURS ── */
+.hours-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.hours-left h2 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.hours-left h2 em { font-style: italic; color: var(--rust); font-weight: 400; }
+.hours-left p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; max-width: 380px; }
+.hours-table { width: 100%; border-collapse: collapse; }
+.hours-table tr { border-bottom: 1px solid var(--border); }
+.hours-table tr:last-child { border-bottom: none; }
+.hours-table td { padding: 10px 0; font-size: 14px; }
+.hours-table td:first-child { color: var(--muted); font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; }
+.hours-table td:last-child { text-align: right; font-weight: 500; }
+.today-row td { color: var(--rust) !important; font-weight: 600 !important; }
+.closed-day { color: var(--muted) !important; font-style: italic; }
+
+.map-box {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.map-placeholder {
+  height: 200px;
+  background: linear-gradient(135deg, #D4C4A8, #C0A882);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  position: relative;
+}
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(44,24,16,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.map-label {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brown);
+}
+.map-sublabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--brown-light);
+  text-transform: uppercase;
+}
+.address-box { padding: 1.2rem 1.4rem; }
+.address-box h4 { font-family: var(--display); font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.address-box p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.address-box a {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rust);
+  padding-bottom: 1px;
+  transition: opacity .2s;
+}
+.address-box a:hover { opacity: 0.7; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--brown);
+  color: rgba(245,239,224,0.6);
+  text-align: center;
+  padding: 2.5rem 2rem;
+  border-top: 2px solid var(--rust);
+}
+.footer-logo {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+}
+.footer-logo span { color: var(--gold); }
+footer p { font-size: 12px; line-height: 1.7; }
+.footer-note {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(245,239,224,0.12);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(245,239,224,0.3);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 3.5rem 1.5rem 2.5rem; }
+  .hero-right { height: 260px; }
+  .nav-links { display: none; }
+  .about-strip { grid-template-columns: 1fr; gap: 2rem; }
+  .strip-divider { display: none; }
+  .story-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hours-section { grid-template-columns: 1fr; gap: 2.5rem; }
+  .menu-section, .hours-section { padding: 3.5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Wollert <span>General Store</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#hours">Find Us</a></li>
+  </ul>
+  <span class="nav-open-badge" id="open-badge">● Open Now</span>
+</nav>
+
+<!-- HERITAGE BAND -->
+<div class="heritage-band">
+  Est. in the heart of Wollert &nbsp;·&nbsp; Original Post Office Building &nbsp;·&nbsp; Melbourne's North
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="steam-wrap">
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+    <div class="steam"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">Wollert's Local Favourite</div>
+    <h1>Hot food.<br><em>Great coffee.</em><br>Good people.</h1>
+    <p class="hero-sub">Fresh burgers, steaming hot food, proper coffee and more — right in the heart of Wollert, in the building where the old post office once stood.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">See our menu</a>
+      <a href="#hours" class="btn-outline">Find us</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="food-grid">
+      <div class="food-cell">☕<div class="food-cell-label">Coffee</div></div>
+      <div class="food-cell">🍔<div class="food-cell-label">Burgers</div></div>
+      <div class="food-cell">🥪<div class="food-cell-label">Sandwiches</div></div>
+      <div class="food-cell">🍳<div class="food-cell-label">Hot Food</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div style="background:var(--cream-dark); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="about-strip">
+    <div class="strip-item">
+      <div class="strip-icon">🌅</div>
+      <div class="strip-title">Fresh Every Morning</div>
+      <div class="strip-desc">Hot food steaming from early morning — because Wollert deserves a proper breakfast.</div>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <div class="strip-icon">📮</div>
+      <div class="strip-title">Historic Building</div>
+      <div class="strip-desc">Proudly trading from Wollert's original post office — a local landmark with a new purpose.</div>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <div class="strip-icon">🤝</div>
+      <div class="strip-title">Community First</div>
+      <div class="strip-desc">Serving Wollert's growing family community — your local for everything from coffee to a quick feed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <div class="section-eyebrow">What's on offer</div>
+    <h2 class="section-title">Something <em>good</em> for everyone</h2>
+  </div>
+  <div class="menu-grid">
+
+    <div class="menu-card">
+      <div class="menu-card-top">☕</div>
+      <div class="menu-card-body">
+        <div class="menu-card-cat">Coffee & Drinks</div>
+        <h3>Proper Coffee</h3>
+        <p>Your morning flat white or a quick espresso — made right, every time.</p>
+        <div class="menu-items">
+          <div class="menu-item"><span class="menu-item-name">Flat White</span><span class="menu-item-price">$5.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Cappuccino</span><span class="menu-item-price">$5.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Long Black</span><span class="menu-item-price">$4.50</span></div>
+          <div class="menu-item"><span class="menu-item-name">Hot Chocolate</span><span class="menu-item-price">$5.50</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-top">🍔</div>
+      <div class="menu-card-body">
+        <div class="menu-card-cat">Burgers</div>
+        <h3>House Burgers</h3>
+        <p>Loaded, fresh and made to order. The kind that actually fills you up.</p>
+        <div class="menu-items">
+          <div class="menu-item"><span class="menu-item-name">Classic Beef Burger</span><span class="menu-item-price">$12.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Chicken Burger</span><span class="menu-item-price">$12.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Cheese Burger</span><span class="menu-item-price">$10.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Burger + Chips</span><span class="menu-item-price">$16.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-top">🍳</div>
+      <div class="menu-card-body">
+        <div class="menu-card-cat">Hot Food</div>
+        <h3>Fresh Hot Food</h3>
+        <p>Steaming hot from the morning — exactly what you need to start the day right.</p>
+        <div class="menu-items">
+          <div class="menu-item"><span class="menu-item-name">Bacon & Egg Roll</span><span class="menu-item-price">$8.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Sausage Roll</span><span class="menu-item-price">$5.50</span></div>
+          <div class="menu-item"><span class="menu-item-name">Meat Pie</span><span class="menu-item-price">$6.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Hot Chips</span><span class="menu-item-price">$5.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-top">🥪</div>
+      <div class="menu-card-body">
+        <div class="menu-card-cat">Sandwiches & Snacks</div>
+        <h3>Made Fresh</h3>
+        <p>Toasties, rolls and sandwiches made to order — perfect for lunch on the go.</p>
+        <div class="menu-items">
+          <div class="menu-item"><span class="menu-item-name">Toasted Sandwich</span><span class="menu-item-price">$8.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Chicken & Salad Roll</span><span class="menu-item-price">$9.00</span></div>
+          <div class="menu-item"><span class="menu-item-name">Ham & Cheese Toastie</span><span class="menu-item-price">$7.50</span></div>
+          <div class="menu-item"><span class="menu-item-name">Daily Special</span><span class="menu-item-price">Ask us</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <p style="text-align:center;margin-top:1.5rem;font-size:13px;color:var(--muted);font-style:italic;">Prices are indicative — ask in store for today's full menu and specials.</p>
+</section>
+
+<!-- STORY -->
+<section class="story-section" id="story">
+  <div class="story-inner">
+    <div class="story-left">
+      <div class="section-eyebrow">Our story</div>
+      <h2>A local store<br>with a <em>little history</em></h2>
+    </div>
+    <div class="story-facts">
+      <div class="story-fact">
+        <div class="fact-icon">📮</div>
+        <div class="fact-text">
+          <h4>The Old Post Office</h4>
+          <p>We trade from Wollert's original post office building — a piece of local history that now serves the community in a new way.</p>
+        </div>
+      </div>
+      <div class="story-fact">
+        <div class="fact-icon">🌅</div>
+        <div class="fact-text">
+          <h4>Mornings Done Right</h4>
+          <p>Every morning the hot food is fresh and steaming — a familiar sight for Wollert locals on their way to work or school.</p>
+        </div>
+      </div>
+      <div class="story-fact">
+        <div class="fact-icon">👨‍👩‍👧‍👦</div>
+        <div class="fact-text">
+          <h4>Growing With Wollert</h4>
+          <p>As one of Melbourne's fastest-growing suburbs, Wollert needs places where people feel welcome. That's what we're here for.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS & FIND US -->
+<section class="hours-section" id="hours">
+  <div class="hours-left">
+    <div class="section-eyebrow">Hours & location</div>
+    <h2>Come find <em>us</em></h2>
+    <p>We're open from 5am — early enough for tradies, commuters, and anyone who knows a good breakfast is worth getting up for. Find us at 491 Epping Rd in the old post office building.</p>
+    <table class="hours-table" id="hours-table">
+      <tr><td>Monday</td><td>5:00am – 3:00pm</td></tr>
+      <tr><td>Tuesday</td><td>5:00am – 3:00pm</td></tr>
+      <tr><td>Wednesday</td><td>5:00am – 3:00pm</td></tr>
+      <tr><td>Thursday</td><td>5:00am – 3:00pm</td></tr>
+      <tr><td>Friday</td><td>5:00am – 3:00pm</td></tr>
+      <tr><td>Saturday</td><td>5:00am – 1:00pm</td></tr>
+      <tr><td>Sunday</td><td class="closed-day">Closed</td></tr>
+    </table>
+  </div>
+  <div>
+    <div class="map-box">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0!2d145.0264!3d-37.5985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65e3b2e6e4e5b%3A0x9789aba21f71dc52!2s491%20Epping%20Rd%2C%20Wollert%20VIC%203750!5e0!3m2!1sen!2sau!4v1"
+        width="100%"
+        height="220"
+        style="border:0; display:block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Wollert General Store & Takeaway location">
+      </iframe>
+      <div class="address-box">
+        <h4>Wollert General Store & Takeaway</h4>
+        <p>491 Epping Rd<br/>Wollert VIC 3750<br/>Old Post Office Building · Melbourne's North</p>
+        <a href="https://maps.google.com/?q=491+Epping+Rd+Wollert+VIC+3750" target="_blank" rel="noopener">Open in Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Wollert <span>General Store</span> & Takeaway</div>
+  <p>Hot food · Fresh coffee · Burgers · Sandwiches<br/>491 Epping Rd, Wollert VIC 3750</p>
+  <div class="footer-note">Concept website · Wollert, Melbourne's North · Mon–Sat from 5am</div>
+</footer>
+
+<script>
+  // Opening hours: [openHour, openMinute, closeHour, closeMinute] or null if closed
+  const hours = {
+    0: null,                // Sunday — closed
+    1: [5, 0, 15, 0],      // Monday    5:00am – 3:00pm
+    2: [5, 0, 15, 0],      // Tuesday
+    3: [5, 0, 15, 0],      // Wednesday
+    4: [5, 0, 15, 0],      // Thursday
+    5: [5, 0, 15, 0],      // Friday
+    6: [5, 0, 13, 0],      // Saturday  5:00am – 1:00pm
+  };
+
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const now = new Date();
+  const day = now.getDay();
+  const currentMins = now.getHours() * 60 + now.getMinutes();
+  const todayHours = hours[day];
+
+  // Badge
+  const badge = document.getElementById('open-badge');
+  if (todayHours) {
+    const [oh, om, ch, cm] = todayHours;
+    const openMins = oh * 60 + om;
+    const closeMins = ch * 60 + cm;
+    const isOpen = currentMins >= openMins && currentMins < closeMins;
+    if (isOpen) {
+      badge.textContent = '● Open Now';
+    } else {
+      badge.classList.add('closed');
+      // Show when they next open
+      if (currentMins < openMins) {
+        badge.textContent = `● Opens at ${oh}:${String(om).padStart(2,'0')}am`;
+      } else {
+        // Find next open day
+        let nextDay = (day + 1) % 7;
+        while (!hours[nextDay]) nextDay = (nextDay + 1) % 7;
+        badge.textContent = `● Opens ${dayNames[nextDay]}`;
+      }
+    }
+  } else {
+    badge.classList.add('closed');
+    // Find next open day
+    let nextDay = (day + 1) % 7;
+    while (!hours[nextDay]) nextDay = (nextDay + 1) % 7;
+    badge.textContent = `● Opens ${dayNames[nextDay]}`;
+  }
+
+  // Highlight today's row in hours table
+  const rows = document.querySelectorAll('#hours-table tr');
+  rows.forEach(row => {
+    if (row.cells[0] && row.cells[0].textContent.trim() === dayNames[day]) {
+      row.classList.add('today-row');
+    }
+  });
+</script>
+
+</body>
+</html>
